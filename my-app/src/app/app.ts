@@ -1,14 +1,17 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NavBar } from './nav-bar/nav-bar';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { Navbar } from './navbar/navbar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavBar],
-  templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, RouterModule, Navbar],
+  template: `
+    <app-navbar></app-navbar>
+    <div class="container mt-4">
+      <router-outlet></router-outlet>
+    </div>
+  `
 })
-
-export class App {
-
-}
+export class AppComponent { }
