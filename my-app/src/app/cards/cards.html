@@ -1,1 +1,56 @@
-<p>cards works!</p>
+<div class="container-fluid py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;">
+  <div class="container">
+    <h1 class="display-3 text-center text-white mb-5 fw-bold">🔍 Find Your Pokémon Card</h1>
+    
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-6">
+        <div class="input-group input-group-lg mb-3">
+          <input 
+            type="text" 
+            class="form-control" 
+            #pokemon 
+            placeholder="Search a Pokémon..."
+            (keyup.enter)="trovaPokemon(pokemon.value)"
+          >
+          <button 
+            class="btn btn-warning fw-bold" 
+            type="button"
+            (click)="trovaPokemon(pokemon.value)"
+          >
+            🔎 Search
+          </button>
+        </div>
+
+        <div class="text-center">
+          <p class="text-white fs-5 mb-3">Don't know any pokemon name? No problem</p>
+          <button
+            class="btn btn-success btn-lg fw-bold"
+            (click)="getRandomCard()"
+          >
+            🎲 Get Random Card
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let card of pokemonCards">
+        <div class="card h-100 shadow-lg rounded-4 overflow-hidden" style="cursor: pointer; transition: all 0.3s ease;">
+          <img 
+            [src]="card.imageUrl" 
+            class="card-img-top" 
+            [alt]="card.name"
+            style="object-fit: cover; height: 400px; background-color: #f0f0f0;"
+          >
+          <div class="card-body bg-light">
+            <h5 class="card-title fw-bold text-dark text-center">{{ card.name }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="pokemonCards.length === 0" class="text-center text-white mt-5">
+      <p class="fs-5">No cards found! Try search a pokemon or just use the random function 🎴</p>
+    </div>
+  </div>
+</div>
