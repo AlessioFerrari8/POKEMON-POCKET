@@ -1,0 +1,19 @@
+<div class="container-fluid py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;">
+  <div class="container">
+    <button class="btn btn-light mb-4" (click)="goBack()">← Back</button>
+    
+    <h1 class="display-3 text-center text-white mb-5 fw-bold">{{ expansionName }}</h1>
+    
+    <div class="alert alert-info text-center">
+      <p>Pagina di dettaglio per: <strong>{{ expansionName }}</strong></p>
+      <p>ID: {{ expansionId }}</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Qui aggiungerai le carte dell'espansione -->
+      <div class="col-12 text-center text-white">
+        <p class="fs-5">📌 Le carte di questa espansione appariranno qui</p>
+      </div>
+    </div>
+  </div>
+</div>

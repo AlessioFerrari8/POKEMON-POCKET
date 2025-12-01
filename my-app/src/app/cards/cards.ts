@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, isWritableSignal, signal, WritableSignal } from '@angular/core';
 import TCGdex, { Query } from '@tcgdex/sdk';
+import { range } from 'rxjs';
 
 const tcgdex = new TCGdex('en');
 
@@ -13,21 +14,23 @@ const tcgdex = new TCGdex('en');
 })
 
 export class Cards {
-  pokemonCards: any[] = [];
-  private cachedResults = new Map<string, any[]>();
+  pokemonCards: any[] = []; // array con le carte trovate
+  randomCards: any[] = []; // array per carte random
+  posizione: WritableSignal<number> = signal(0);
+  private cachedResults = new Map<string, any[]>(); // cache per salvarsi i result
 
   async trovaPokemon(nomePokemon: string): Promise<void> {
     // Controlla la cache
-    if (this.cachedResults.has(nomePokemon)) {
+    if (this.cachedResults.has(nomePokemon)) { // non rifaccio al chiamata
       this.pokemonCards = this.cachedResults.get(nomePokemon)!;
       return;
     }
 
-    const cards = await tcgdex.card.list(
+    const cards = await tcgdex.card.list( // mi faccio l'array con tutte le carte
       Query.create()
       .equal('name', nomePokemon)
       .greaterOrEqualThan('hp', 60)  // HP >= 60
-      .sort('localId', 'ASC')  // Sort by ID ascending
+      .sort('localId', 'ASC')  // Sort by ID 
     );
     
     // Limita a 12 risultati
@@ -44,13 +47,22 @@ export class Cards {
     this.pokemonCards = cardsWithImages;
   }
 
-  async getRandomCard(): Promise<void> {
-    const randomCard = await tcgdex.random.card();
-    
+  async genRandomCard(): Promise<void> {
+    for(let i = 0; i < 10; i++) {
+      const randomCard = await tcgdex.random.card();
+      this.randomCards.push(randomCard);
+      console.log("Nuovo random")
+      console.log("Pokemon Caricato ", randomCard.name)
+    }
+  }
+
+  getRandomCard(): void {
+    const randomCard = this.randomCards[this.posizione()];
     this.pokemonCards = [{
       ...randomCard,
-      imageUrl: randomCard.getImageURL('high', 'png')
+      imageUrl: randomCard.getImageURL('low', 'webp')
     }];
+    this.posizione.update(valoreVecchio => valoreVecchio + 1);
   }
 
 }
