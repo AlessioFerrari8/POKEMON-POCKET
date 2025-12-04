@@ -1,2 +1,9 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+}
