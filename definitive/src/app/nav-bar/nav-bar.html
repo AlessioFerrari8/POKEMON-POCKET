@@ -8,7 +8,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" aria-current="page" routerLink="/home" routerLinkActive="active">Home</a>
         </li>
@@ -22,6 +22,10 @@
           <a class="nav-link" aria-current="page" routerLink="/wishlist" routerLinkActive="active">Wishlist</a>
         </li>
       </ul>
+      <div class="d-flex" style="grid-template-columns: 1fr 1fr;" class="d-grid gap-0 column-gap-3">
+        <button class="btn btn-outline-success" type="button">Log in</button>
+        <button class="btn btn-outline-primary" type="button">Sign up</button>
+      </div>
     </div>
   </div>
 </nav>
